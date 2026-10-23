@@ -44,7 +44,7 @@ body{
 }
 #personagem{
     background-image: url("./assets/character/idle-front.png");
-     background-size: 400% 100%; /* 4 frames = 400% da largura */
+    background-size: 400% 100%; /* 4 frames = 400% da largura */
     background-position: 0% 0%; 
     background-repeat: no-repeat;
     image-rendering: pixelated; 
@@ -54,9 +54,7 @@ body{
     width: 48px;
     height: 48px;
 }
-.colisao{
-    
-}
+
 .tile {
     z-index: 9;
     position: absolute;
@@ -64,6 +62,32 @@ body{
     height: 48px;
     background-image: url("./assets/terrain/grass.png");
     background-size: cover;
+}
+.bomba {
+    z-index: 11;
+    position: absolute;
+    display:block;
+    width: 48px;
+    height: 48px;
+    background-image: url("./assets/items/dynamite.png");
+    background-size: 300% 300%;
+    background-position: 0,0;
+}
+.explosao{
+    z-index: 12;
+    position: absolute;
+    display:block;
+    width: 48px;
+    height: 48px;
+    background-image: url("./assets/fxs/explosion.png");
+    background-size: 300% 200%; 
+    background-position:px 0px;
+    background-repeat: no-repeat;
+    image-rendering: pixelated; 
+    
+}
+.bombaInativa{
+    display: none;
 }
 .outsideTile{
     z-index: 9;
