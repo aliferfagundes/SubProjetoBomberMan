@@ -4,7 +4,7 @@ const game = document.getElementById('game');
 const COLS = 21, ROWS = 15, TILE = 48;
 const ROWSLIMIT = 15, COLSLIMIT =20;
 let podeAndar = true;
-let distanciaBomba = 1;
+let distanciaBomba = 20;
 let mapa = Array.from({ length: COLS }, () => Array(ROWS).fill(0));
 let posicaox = 3,posicaoy = 3;
 const JOGADOR = document.getElementById('personagem');
