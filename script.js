@@ -3,12 +3,23 @@ const menu = document.getElementById('menu');
 const game = document.getElementById('game');
 const COLS = 21, ROWS = 15, TILE = 48;
 const ROWSLIMIT = 15, COLSLIMIT =20;
-let posicaox = 1,posicaoy = 1;
+let posicaox = 3,posicaoy = 3;
 const JOGADOR = document.getElementById('personagem')
-function carregarPersonagem(x,y){
-    JOGADOR.style.left = (x*TILE) + 'px';
-    JOGADOR.style.top = (y*TILE) + 'px';
+function carregarPersonagem(){
+    JOGADOR.style.left = (posicaox*TILE) + 'px';
+    JOGADOR.style.top = (posicaoy*TILE) + 'px';
 }
+function andar(npx,npy){
+    posicaox += npx;
+    posicaoy += npy;
+    carregarPersonagem();
+}
+document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowUp') andar(0,-1);
+    if(e.key === 'ArrowDown') andar(0,1);
+    if(e.key === 'ArrowLeft') andar(-1,0);
+    if(e.key === 'ArrowRight') andar(1,0);
+});
 function comecaFase01(){
     for (let y = 0; y < ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
@@ -22,8 +33,7 @@ function comecaFase01(){
             game.appendChild(tile);
         }
     }
-    carregarPersonagem(1,2);
-
+    carregarPersonagem();
 }
 function transicao(){
     menu.style.display = 'none';
