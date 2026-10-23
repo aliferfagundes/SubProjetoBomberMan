@@ -73,6 +73,7 @@ body{
     background-size: 300% 300%;
     background-position: 0,0;
 }
+
 .explosao{
     z-index: 12;
     position: absolute;

@@ -7,7 +7,7 @@ let podeAndar = true;
 let distanciaBomba = 1;
 let mapa = Array.from({ length: COLS }, () => Array(ROWS).fill(0));
 let posicaox = 3,posicaoy = 3;
-const JOGADOR = document.getElementById('personagem')
+const JOGADOR = document.getElementById('personagem');
 function carregarPersonagem(){
     mapa[posicaox][posicaoy]= 1;
     JOGADOR.style.left = (posicaox*TILE) + 'px';
@@ -80,7 +80,7 @@ function soltarBomba(){
                 
                 if (mapa[alvoX][alvoY] === 2) break;
                  
-                if ((mapa[alvoX][alvoY]) ===4){
+                if ((mapa[alvoX][alvoY]) === 4){
                     caixa.remove;
                     const caixa = document.getElementById(`tile-${alvoX}-${alvoY}`);
                     const tile = document.createElement('div');
@@ -94,7 +94,9 @@ function soltarBomba(){
                 if ((mapa[alvoX][alvoY] ===5)){
                     //condição da vitoria no caso a chave para a porta, ou a porta em sí vou decidir
                 }
-                
+                if ((mapa[alvoX][alvoY] ===1)){
+                    JOGADOR.style.backgroundImage = './assets/character/death-front.png';
+                }
                 criarExplosao(alvoX, alvoY);
             }
             
