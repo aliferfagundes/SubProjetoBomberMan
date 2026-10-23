@@ -6,7 +6,6 @@
 
 #titulo{
     font-size: clamp(2.5rem, 8vw, 6rem);;
-    font-family: ;
     position: absolute;
     top: 30%;
     left: 38%;
@@ -31,7 +30,14 @@
 #game{
     display: none;
 }
-
+#placeholdergame{
+    width:  80%;
+    
+}
+#gameover{
+    background-color: black;
+    display: none;
+}
 @media screen {
     
 }
