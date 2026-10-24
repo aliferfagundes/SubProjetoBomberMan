@@ -40,37 +40,31 @@ function criarExplosao(x, y) {
     setTimeout(() => explosao.remove(), 500); 
 }
 function carregarObstaculos(){
-    for(let x =0 ; x<COLS; x++){
-        for (let y =0; y<ROWS; y++){
-            let perto;
-            if(x ===0){
-                perto = menu[x][y] === 1|| menu[x+1][y] || menu[x][y+1]|| menu[x][y-1];
+       for(let x = 0; x < COLS; x++){
+        for (let y = 0; y < ROWS; y++){
+            /*
+            direcoes.forEach(dir => {
+            for (let i = 1; i <= 1; i++) {
+                let alvoX = 1 + (dir[0] * i);
+                let alvoY = 1 + (dir[1] * i);
+                if (alvoX <= 0 || alvoX >= COLS-1 || alvoY <= 0 || alvoY >= ROWS-1) break;
+
             }
-            if(x===COLS){
-                perto = menu[x][y] === 1|| menu[x-1][y] || menu[x][y+1]|| menu[x][y-1];
-            }
-            if(y === 0){
-                perto = menu[x][y] === 1|| menu[x+1][y] || menu[x][y+1]|| menu[x-1][y];
-            }
-            if(y === ROWS){
-                perto = menu[x][y] === 1|| menu[x+1][y] || menu[x][y-1]|| menu[x-1][y];
-            }
-            if(x!=0 || x!=ROWS|| y!=0 || y!=0){
-                perto = menu[x][y] === 1|| menu[x-1][y] === 1|| menu[x+1][y] || menu[x][y+1]|| menu[x][y-1];
-            }
-            if(mapa[x][y]===0 && !perto){
+                });
+                */
+            if(mapa[x][y] === 0 && Math.random() < 0.7 && !(x === 3 && y === 3) && mapa[x][y] !=6) {
                 const paredequebravel = document.createElement('div');
                 paredequebravel.className = 'paredequebravel';
+                paredequebravel.id = `caixa-${x}-${y}`;
                 paredequebravel.style.left = (x * TILE) + 'px';
                 paredequebravel.style.top  = (y * TILE) + 'px';
                 mapa[x][y] = 4;
-                game.appendChild(paredequebravel);
-                
+                game.appendChild(paredequebravel);  
             }
-            
         }
     }
 }
+
 function soltarBomba(){
 
     if (mapa[posicaox][posicaoy] === 3) return;
@@ -111,19 +105,24 @@ function soltarBomba(){
                 
                 if (mapa[alvoX][alvoY] === 2) break;
                  
-                if ((mapa[alvoX][alvoY]) === 4){
-                    caixa.remove;
-                    const caixa = document.getElementById(`tile-${alvoX}-${alvoY}`);
-                    const tile = document.createElement('div');
-                    tile.className = 'tile';
-                    tile.style.left = alvoX*TILE + 'px';
-                    tile.style.top = alvoY*TILE + 'px';
-                    criarExplosao(alvoX,alvoY);
-                    mapa[alvoX][alvoY] = 0;
-                    break;
-                }
-                if ((mapa[alvoX][alvoY] ===5)){
-                    //condição da vitoria no caso a chave para a porta, ou a porta em sí vou decidir
+               if (mapa[alvoX][alvoY] === 4){
+    
+    const caixa = document.getElementById(`caixa-${alvoX}-${alvoY}`);
+        if (caixa) caixa.remove();
+    
+    
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.style.left = (alvoX * TILE) + 'px';
+            tile.style.top = (alvoY * TILE) + 'px';
+            game.appendChild(tile); // Faltava isso!
+    
+    
+            criarExplosao(alvoX, alvoY);
+    
+    
+            mapa[alvoX][alvoY] = 0;
+            break; 
                 }
                 if ((mapa[alvoX][alvoY] ===1)){
                     JOGADOR.style.backgroundImage = 'url(./assets/character/death-front.png)';
@@ -155,6 +154,7 @@ function comecaFase01(){
             const borda = (x === 0 || y === 0 || x === COLS - 1 || y === ROWS - 1);
             const wall = !borda && (x%2===0 && y%2===0);
             tile.className = borda ? 'outsideTile' : 'tile'
+            if(borda){mapa[x][y] = 6}
             if(wall){tile.classList.add('wall'); mapa[x][y] = 2;}
             tile.style.left = (x * TILE) + 'px';
             tile.style.top  = (y * TILE) + 'px';

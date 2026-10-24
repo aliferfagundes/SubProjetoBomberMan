@@ -1,6 +1,7 @@
 body {
-    background-image: url(./source/inicio.jpg);
-    background-size: cover;
+    background-image: url(./source/bomberman.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     background-position: center;
     image-rendering: pixelated; 
     
@@ -16,17 +17,20 @@ body {
     width: 15%;
     height: 15%;
     position: absolute;
+    background-repeat:no-repeat ;
+    
     top: 46%;
     left: 43%;
-    font-size: 40px;
     border: none;
-    background-image: url("./source/botao.jpeg");
+    background-image: url("./source/start.png");
     background-size: cover;
     background-color: transparent;
     image-rendering: pixelated;
 }
 #start:hover{
-    font-size: 50px;
+ width: 16%;   
+ height: 16%;
+ left: 43%;
 }
 #menu{
     width: 100vw;
@@ -54,7 +58,16 @@ body {
     width: 48px;
     height: 48px;
 }
+.paredequebravel{
+    z-index: 10;
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background-image: url("./assets/terrain/ground.png");
+    background-size: cover ;
+    
 
+}
 .tile {
     z-index: 9;
     position: absolute;
