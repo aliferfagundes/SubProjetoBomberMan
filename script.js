@@ -20,6 +20,7 @@ function andar(npx,npy){
     mapa[posicaox][posicaoy] = 0;
     posicaox += npx;
     posicaoy += npy;
+    mapa[posicaox][posicaoy] = 1;
     carregarPersonagem();
     setTimeout(() => {
         podeAndar = true;
@@ -39,7 +40,36 @@ function criarExplosao(x, y) {
     setTimeout(() => explosao.remove(), 500); 
 }
 function carregarObstaculos(){
-
+    for(let x =0 ; x<COLS; x++){
+        for (let y =0; y<ROWS; y++){
+            let perto;
+            if(x ===0){
+                perto = menu[x][y] === 1|| menu[x+1][y] || menu[x][y+1]|| menu[x][y-1];
+            }
+            if(x===COLS){
+                perto = menu[x][y] === 1|| menu[x-1][y] || menu[x][y+1]|| menu[x][y-1];
+            }
+            if(y === 0){
+                perto = menu[x][y] === 1|| menu[x+1][y] || menu[x][y+1]|| menu[x-1][y];
+            }
+            if(y === ROWS){
+                perto = menu[x][y] === 1|| menu[x+1][y] || menu[x][y-1]|| menu[x-1][y];
+            }
+            if(x!=0 || x!=ROWS|| y!=0 || y!=0){
+                perto = menu[x][y] === 1|| menu[x-1][y] === 1|| menu[x+1][y] || menu[x][y+1]|| menu[x][y-1];
+            }
+            if(mapa[x][y]===0 && !perto){
+                const paredequebravel = document.createElement('div');
+                paredequebravel.className = 'paredequebravel';
+                paredequebravel.style.left = (x * TILE) + 'px';
+                paredequebravel.style.top  = (y * TILE) + 'px';
+                mapa[x][y] = 4;
+                game.appendChild(paredequebravel);
+                
+            }
+            
+        }
+    }
 }
 function soltarBomba(){
 
@@ -55,6 +85,7 @@ function soltarBomba(){
     
 
     mapa[posicaox][posicaoy] = 3;
+
 
     setTimeout(() => {
 
@@ -95,7 +126,8 @@ function soltarBomba(){
                     //condição da vitoria no caso a chave para a porta, ou a porta em sí vou decidir
                 }
                 if ((mapa[alvoX][alvoY] ===1)){
-                    JOGADOR.style.backgroundImage = './assets/character/death-front.png';
+                    JOGADOR.style.backgroundImage = 'url(./assets/character/death-front.png)';
+                    break;
                 }
                 criarExplosao(alvoX, alvoY);
             }
@@ -130,6 +162,7 @@ function comecaFase01(){
         }
     }
     carregarPersonagem();
+    carregarObstaculos();
 }
 function transicao(){
     menu.style.display = 'none';
@@ -137,7 +170,7 @@ function transicao(){
     comecaFase01();
 }
 button.addEventListener('click', transicao);
-
+            
 
 
 
