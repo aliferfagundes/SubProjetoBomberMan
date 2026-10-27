@@ -6,6 +6,12 @@ body {
     image-rendering: pixelated; 
     
 }
+#mainmenu{
+    display:block;
+}
+#retry{
+    display: block;
+}
 #titulo{
     font-size: clamp(2.5rem, 8vw, 6rem);;
     position: absolute;
@@ -48,6 +54,18 @@ body {
 }
 #personagem{
     background-image: url("./assets/character/idle-front.png");
+    background-size: 400% 100%;
+    background-position: 0% 0%; 
+    background-repeat: no-repeat;
+    image-rendering: pixelated; 
+    position:absolute;
+    transition: left 0.1s, top 0.1s;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+}
+#personagem2{
+    background-image: url("./assets/character/idle-back.png");
     background-size: 400% 100%;
     background-position: 0% 0%; 
     background-repeat: no-repeat;
@@ -119,6 +137,7 @@ body {
     width:  80%;
     
 }
+
 
 #gameover{
     background-color: black;
