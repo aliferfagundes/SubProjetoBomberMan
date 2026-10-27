@@ -6,6 +6,7 @@ body {
     image-rendering: pixelated; 
     
 }
+
 #mainmenu{
     display:block;
 }
@@ -140,6 +141,10 @@ body {
 
 
 #gameover{
+    background-color: black;
+    display: none;
+}
+#gameover2{
     background-color: black;
     display: none;
 }

@@ -27,8 +27,6 @@ function carregarPersonagem(){
 }
 function carregarPersonagem2(){
     mapa[posicaox2][posicaoy2]= 7;
-    JOGADOR.style.backgroundSize ='400% 100%;';
-    JOGADOR.style.backgroundPosition ='0% 0%';
     JOGADOR2.style.left = (posicaox2*TILE) + 'px';
     JOGADOR2.style.top = (posicaoy2*TILE) + 'px';
     JOGADOR2.style.backgroundImage = 'url("./assets/character/idle-back.png")';
@@ -184,6 +182,8 @@ function soltarBomba(posicaox,posicaoy){
                     setTimeout(()=>{
                         JOGADOR.style.backgroundSize = '400% 100%';
                     JOGADOR.style.backgroundPosition ='0% 0%';
+                    JOGADOR2.style.backgroundSize = '400% 100%';
+                        JOGADOR2.style.backgroundPosition ='0% 0%';
                         morte2();
                     }, 1500);
                     break;
@@ -223,6 +223,7 @@ document.addEventListener('keydown', (e)=>{
 });
 function comecaFase01(){
     posicaox = 3,posicaoy = 3;
+    posicaox2 = 17; posicaoy2=11;
     for (let y = 0; y < ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
             const tile = document.createElement('div');
@@ -268,7 +269,7 @@ function morte(){
 function morte2(){
     game.style.display =  'none';
     FIMDEJOGO2.style.display = 'block';
-    mapa[posicaox][posicaoy] = 0;
+    mapa[posicaox2][posicaoy2] = 0;
     Array.from(game.children).forEach(child => {
     if (child.id !== 'personagem' && child.id !=='personagem2') {
         child.remove();
