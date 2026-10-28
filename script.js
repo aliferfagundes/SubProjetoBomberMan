@@ -19,6 +19,7 @@ let posicaox2 = 17,posicaoy2 = 11;
 const JOGADOR = document.getElementById('personagem');
 const JOGADOR2 = document.getElementById('personagem2');
 
+
 function carregarPersonagem(){
     mapa[posicaox][posicaoy]= 1;
     JOGADOR.style.left = (posicaox*TILE) + 'px';
@@ -31,6 +32,10 @@ function carregarPersonagem2(){
     JOGADOR2.style.top = (posicaoy2*TILE) + 'px';
     JOGADOR2.style.backgroundImage = 'url("./assets/character/idle-back.png")';
 }
+function sound(){
+    const som = new Audio('./source/walk.mp3');
+    som.play();
+}
 function andar(npx,npy){
     if((posicaox+npx> 0 && posicaox+npx<COLS-1 && posicaoy+npy>0 && posicaoy+npy<ROWS-1) && mapa[posicaox + npx][posicaoy+npy] ===0 && !(mapa[posicaox + npx][posicaoy+npy] ===3)){
     if (!podeAndar) return;
@@ -41,6 +46,7 @@ function andar(npx,npy){
     posicaoy += npy;
     mapa[posicaox][posicaoy] = 1;
     carregarPersonagem();
+    sound();
     setTimeout(() => {
         podeAndar = true;
 
@@ -58,6 +64,7 @@ function andar2(npx,npy){
     posicaoy2 += npy;
     mapa[posicaox2][posicaoy2] = 7;
     carregarPersonagem2();
+    sound();
     setTimeout(() => {
         podeAndar2 = true;
 
@@ -243,7 +250,7 @@ function comecaFase01(){
 }
 function transicao(){
     FIMDEJOGO.style.display = 'none';
-    menu.style.display = 'none';
+    menu.style.display =  'none';
     game.style.display = 'block';
     comecaFase01();
 }
