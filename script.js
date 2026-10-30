@@ -8,7 +8,7 @@ const FIMDEJOGO = document.getElementById('gameover');
 const FIMDEJOGO_TITULO = document.getElementById('gameover-titulo');
 const buttonrestart = document.getElementById('retry');
 const buttonmenu = document.getElementById('mainmenu');
-
+ const backgroundSound = new Audio('./source/soundtrack.mp3');
 let podeAndar = true;
 let bombaSolta = false;
 let podeAndar2 = true;
@@ -34,8 +34,9 @@ function carregarPersonagem2(){
     JOGADOR2.style.backgroundImage = 'url("./assets/character/idle-back.png")';
 }
 
-function sound(){
-    const som = new Audio('./source/walk.mp3');
+function sound(audio){
+    const som = new Audio(audio);
+    som.volume=0.7;
     som.play();
 }
 
@@ -51,7 +52,8 @@ function andar(npx, npy){
         posicaoy += npy;
         mapa[posicaox][posicaoy] = 1;
         carregarPersonagem();
-        sound();
+        let som = "./source/walk.mp3"
+        sound(som);
         setTimeout(() => { podeAndar = true; }, 150);
     }
 }
@@ -68,7 +70,8 @@ function andar2(npx, npy){
         posicaoy2 += npy;
         mapa[posicaox2][posicaoy2] = 7;
         carregarPersonagem2();
-        sound();
+        let som = "./source/walk.mp3"
+        sound(som);
         setTimeout(() => { podeAndar2 = true; }, 150);
     }
 }
@@ -99,6 +102,8 @@ function carregarObstaculos(){
 }
 
 function soltarBomba(posicaox, posicaoy){
+    let som01 = "./source/deployBomb.mp3";
+    sound(som01);
     if (mapa[posicaox][posicaoy] === 3) return;
 
     const bomb = document.createElement('div');
@@ -144,26 +149,47 @@ function soltarBomba(posicaox, posicaoy){
                     criarExplosao(alvoX, alvoY);
 
                     mapa[alvoX][alvoY] = 0;
+                    let som = "./source/wallBreak.mp3";
+                    sound(som);
                     break;
                 }
-                if (mapa[alvoX][alvoY] === 1) {
+                function morto(){
+                    podeAndar=false;
+                    podeAndar2=false;
+                    
+                    setTimeout(()=>{
+                        podeAndar= true;
+                        podeAndar2 = true;
+                    },3000)
+                }
+                let p1EstaMorto = false;
+                let p2EstaMorto = false;
+                if (mapa[alvoX][alvoY] === 1 && !p2EstaMorto) {
+                    p1EstaMorto = true;
+                    backgroundSound.pause();
+                    morto();
                     JOGADOR.style.backgroundImage = 'url(./assets/character/death-front.png)';
                     JOGADOR2.style.backgroundImage = 'url(./assets/character/win-front.png)';
-                    JOGADOR2.style.backgroundSize = '48px 96px';
+                    JOGADOR.style.backgroundSize = '500% 100%';
+                    JOGADOR2.style.backgroundSize = '96px 48px';
                     JOGADOR2.style.backgroundPosition = '0px 0px';
                     setTimeout(() => {
+                        JOGADOR.style.backgroundSize = '400% 100%';
                         JOGADOR2.style.backgroundSize = '400% 100%';
                         JOGADOR2.style.backgroundPosition = '0% 0%';
                         morte();
                     }, 1500);
                     break;
                 }
-                if (mapa[alvoX][alvoY] === 7) {
+                if (mapa[alvoX][alvoY] === 7 && !p1EstaMorto) {
+                    p2EstaMorto = true;
+                    backgroundSound.pause();
+                    morto();
                     JOGADOR2.style.backgroundImage = 'url(./assets/character/death-front.png)';
                     JOGADOR.style.backgroundImage = 'url(./assets/character/win-front.png)';
                     JOGADOR.style.backgroundSize = '96px 48px';
                     JOGADOR.style.backgroundPosition = '0px 0px';
-                    JOGADOR2.style.backgroundSize = '164px 32px';
+                    JOGADOR2.style.backgroundSize = '500% 100%';
                     JOGADOR2.style.backgroundPosition = '0px 0px';
                     setTimeout(() => {
                         JOGADOR.style.backgroundSize = '400% 100%';
@@ -177,30 +203,33 @@ function soltarBomba(posicaox, posicaoy){
                 criarExplosao(alvoX, alvoY);
             }
         });
+        let som = "./source/boom.mp3";
+        sound(som);
     }, 2000);
+
 }
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === ':' || e.key === ';') {
+    if ((e.key === 'q' || e.key === 'Q') && podeAndar) {
         soltarBomba(posicaox, posicaoy);
     }
 });
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowUp') { andar(0, -1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-back.png)'; }
-    if (e.key === 'ArrowDown') { andar(0, 1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-front.png)'; }
-    if (e.key === 'ArrowLeft') { andar(-1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-left.png)'; }
-    if (e.key === 'ArrowRight') { andar(1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-right.png)'; }
+    if (e.key === 'w' && podeAndar) { andar(0, -1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-back.png)'; }
+    if (e.key === 's' && podeAndar) { andar(0, 1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-front.png)'; }
+    if (e.key === 'a' && podeAndar) { andar(-1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-left.png)'; }
+    if (e.key === 'd' && podeAndar) { andar(1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-right.png)'; }
 });
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'q' || e.key === 'Q') {
+    if ((e.key === ';' || e.key === ':')&& podeAndar2) {
         soltarBomba(posicaox2, posicaoy2);
     }
 });
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'w') { andar2(0, -1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-back.png)'; }
-    if (e.key === 's') { andar2(0, 1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-front.png)'; }
-    if (e.key === 'a') { andar2(-1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-left.png)'; }
-    if (e.key === 'd') { andar2(1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-right.png)'; }
+    if (e.key === 'ArrowUp'&& podeAndar2) { andar2(0, -1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-back.png)'; }
+    if (e.key === 'ArrowDown'&& podeAndar2) { andar2(0, 1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-front.png)'; }
+    if (e.key === 'ArrowLeft'&& podeAndar2) { andar2(-1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-left.png)'; }
+    if (e.key === 'ArrowRight'&& podeAndar2) { andar2(1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-right.png)'; }
 });
 
 function comecaFase01(){
@@ -222,6 +251,10 @@ function comecaFase01(){
     carregarPersonagem();
     carregarPersonagem2();
     carregarObstaculos();
+    backgroundSound.currentTime = 0;
+    backgroundSound.loop = true;
+    backgroundSound.play();
+    backgroundSound.volume = 0.4;
 }
 
 function transicao(){
@@ -256,6 +289,8 @@ function morte(){
     FIMDEJOGO_TITULO.textContent = 'JOGADOR 2 VENCEU!';
     FIMDEJOGO.style.display = 'flex';
     mapa[posicaox][posicaoy] = 0;
+    let som = "./source/win.mp3";
+    sound(som);
     limparTabuleiro();
 }
 
@@ -264,6 +299,8 @@ function morte2(){
     FIMDEJOGO_TITULO.textContent = 'JOGADOR 1 VENCEU!';
     FIMDEJOGO.style.display = 'flex';
     mapa[posicaox2][posicaoy2] = 0;
+    let som = "./source/win.mp3";
+    sound(som);
     limparTabuleiro();
 }
 

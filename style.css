@@ -63,10 +63,7 @@ canvas {
     image-rendering: pixelated;
 }
 
-/* ===== TABULEIRO DO JOGO ===== */
-/* #game-wrapper fica escondido até o JS trocar para "flex" no clique do START.
-   IMPORTANTE: "display" só pode aparecer UMA vez por regra — a segunda
-   declaração sempre vence e anula a primeira. */
+
 #game-wrapper {
     display: none;
     width: 1300px;
@@ -172,10 +169,7 @@ canvas {
     width: 80%;
 }
 
-/* ===== TELA DE FIM DE JOGO ===== */
-/* Aparece quando qualquer um dos dois jogadores morre.
-   Igual ao #game-wrapper: "display" aparece só UMA vez aqui,
-   o JS troca para "flex" na hora de mostrar. */
+
 #gameover{
     display: none;
     width: 100%;
