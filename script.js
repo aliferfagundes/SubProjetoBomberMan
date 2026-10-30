@@ -164,10 +164,10 @@ function soltarBomba(posicaox, posicaoy){
                 }
                 let p1EstaMorto = false;
                 let p2EstaMorto = false;
+
                 if (mapa[alvoX][alvoY] === 1 && !p2EstaMorto) {
-                    p1EstaMorto = true;
+                    
                     backgroundSound.pause();
-                    morto();
                     JOGADOR.style.backgroundImage = 'url(./assets/character/death-front.png)';
                     JOGADOR2.style.backgroundImage = 'url(./assets/character/win-front.png)';
                     JOGADOR.style.backgroundSize = '500% 100%';
@@ -179,12 +179,12 @@ function soltarBomba(posicaox, posicaoy){
                         JOGADOR2.style.backgroundPosition = '0% 0%';
                         morte();
                     }, 1500);
+                    p1EstaMorto = false;
                     break;
                 }
-                if (mapa[alvoX][alvoY] === 7 && !p1EstaMorto) {
-                    p2EstaMorto = true;
+                if(mapa[alvoX][alvoY] === 7 && !p1EstaMorto) {
+                    
                     backgroundSound.pause();
-                    morto();
                     JOGADOR2.style.backgroundImage = 'url(./assets/character/death-front.png)';
                     JOGADOR.style.backgroundImage = 'url(./assets/character/win-front.png)';
                     JOGADOR.style.backgroundSize = '96px 48px';
@@ -198,7 +198,10 @@ function soltarBomba(posicaox, posicaoy){
                         JOGADOR2.style.backgroundPosition = '0% 0%';
                         morte2();
                     }, 1500);
+                    matriz[alvoX][alvoY] = 0;
+                    p2EstaMorto = false;
                     break;
+                    
                 }
                 criarExplosao(alvoX, alvoY);
             }
