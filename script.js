@@ -1,14 +1,13 @@
 const button = document.getElementById('start');
 const menu = document.getElementById('menu');
 const game = document.getElementById('game');
+const gameWrapper = document.getElementById('game-wrapper');
 const COLS = 21, ROWS = 15, TILE = 48;
 const ROWSLIMIT = 15, COLSLIMIT =20;
 const FIMDEJOGO = document.getElementById('gameover');
-const FIMDEJOGO2 = document.getElementById('gameover2');
+const FIMDEJOGO_TITULO = document.getElementById('gameover-titulo');
 const buttonrestart = document.getElementById('retry');
 const buttonmenu = document.getElementById('mainmenu');
-const buttonrestart2 = document.getElementById('retry2');
-const buttonmenu2 = document.getElementById('mainmenu2');
 let podeAndar = true;
 let bombaSolta = false;
 let podeAndar2 = true;
@@ -251,7 +250,7 @@ function comecaFase01(){
 function transicao(){
     FIMDEJOGO.style.display = 'none';
     menu.style.display =  'none';
-    game.style.display = 'block';
+    gameWrapper.style.display = 'flex';
     comecaFase01();
 }
 function deVoltaAoMenu(){
@@ -259,39 +258,37 @@ function deVoltaAoMenu(){
     FIMDEJOGO.style.display = 'none';
 }
 button.addEventListener('click', transicao);
-function morte(){
-    game.style.display =  'none';
-    FIMDEJOGO.style.display = 'block';
-    mapa[posicaox][posicaoy] = 0;
+
+function limparTabuleiro(){
     Array.from(game.children).forEach(child => {
-    if (child.id !== 'personagem' && child.id !=='personagem2') {
-        child.remove();
-    }
-});
-     for(let x = 0; x < COLS; x++){
+        if (child.id !== 'personagem' && child.id !=='personagem2') {
+            child.remove();
+        }
+    });
+    for(let x = 0; x < COLS; x++){
         for (let y = 0; y < ROWS; y++){
-    mapa[x][y] = 0;
-        }}
+            mapa[x][y] = 0;
+        }
+    }
+}
+
+function morte(){
+    gameWrapper.style.display = 'none';
+    FIMDEJOGO_TITULO.textContent = 'JOGADOR 2 VENCEU!';
+    FIMDEJOGO.style.display = 'flex';
+    mapa[posicaox][posicaoy] = 0;
+    limparTabuleiro();
 }
 function morte2(){
-    game.style.display =  'none';
-    FIMDEJOGO2.style.display = 'block';
+    gameWrapper.style.display = 'none';
+    FIMDEJOGO_TITULO.textContent = 'JOGADOR 1 VENCEU!';
+    FIMDEJOGO.style.display = 'flex';
     mapa[posicaox2][posicaoy2] = 0;
-    Array.from(game.children).forEach(child => {
-    if (child.id !== 'personagem' && child.id !=='personagem2') {
-        child.remove();
-    }
-});
-     for(let x = 0; x < COLS; x++){
-        for (let y = 0; y < ROWS; y++){
-    mapa[x][y] = 0;
-        }}
+    limparTabuleiro();
 }
 
 buttonrestart.addEventListener('click', transicao);
 buttonmenu.addEventListener('click',deVoltaAoMenu);
-buttonrestart2.addEventListener('click', transicao);
-buttonmenu2.addEventListener('click',deVoltaAoMenu);
 
 
 
