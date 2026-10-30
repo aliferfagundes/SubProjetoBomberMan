@@ -1,65 +1,103 @@
-body {
-    background-image: url(./source/bomberman.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    image-rendering: pixelated; 
-    
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
-#mainmenu{
-    display:block;
+body {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    overflow: hidden;
 }
-#retry{
+
+/* ===== TELA DE MENU INICIAL ===== */
+#menu{
+    width: 100%;
+    height: 100%;
     display: block;
+    position: relative;
+    background-image: url("./source/inicio.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    overflow: hidden;
 }
+
 #titulo{
-    font-size: clamp(2.5rem, 8vw, 6rem);;
+    font-size: clamp(2.5rem, 8vw, 6rem);
     position: absolute;
     top: 30%;
     left: 38%;
     z-index: 10;
 }
+
 #start{
-    width: 15%;
+    width: 14%;
     height: 15%;
     position: absolute;
-    background-repeat:no-repeat ;
-    
-    top: 46%;
+    top: 68%;
     left: 43%;
     border: none;
+    background-repeat: no-repeat;
     background-image: url("./source/start.png");
-    background-size: cover;
+    background-size: contain;
     background-color: transparent;
     image-rendering: pixelated;
+    cursor: pointer;
+    transition: width 0.15s ease, height 0.15s ease;
 }
 #start:hover{
- width: 16%;   
- height: 16%;
- left: 43%;
+    width: 16%;
+    height: 16%;
+    left: 43%;
 }
-#menu{
-    width: 100vw;
-    height: 100vh;
-    display: block;
-    object-fit: cover;
+
+canvas {
+    image-rendering: pixelated;
 }
-#game {
-    display:none;
-    margin: 150px auto 0;
+
+/* ===== TABULEIRO DO JOGO ===== */
+/* #game-wrapper fica escondido até o JS trocar para "flex" no clique do START.
+   IMPORTANTE: "display" só pode aparecer UMA vez por regra — a segunda
+   declaração sempre vence e anula a primeira. */
+#game-wrapper {
+    display: none;
+    width: 1300px;
+    height: 950px;
     position: relative;
-    width: 1008px;  
-    height: 720px;  
-    background: #000;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url("./source/fundo-ingame.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
 }
+
+#game {
+    margin: 0;
+    width: 1008px;
+    height: 720px;
+    position: relative;
+    transform: scale(0.8);
+    transform-origin: center;
+}
+
 #personagem{
     background-image: url("./assets/character/idle-front.png");
     background-size: 400% 100%;
-    background-position: 0% 0%; 
+    background-position: 0% 0%;
     background-repeat: no-repeat;
-    image-rendering: pixelated; 
-    position:absolute;
+    image-rendering: pixelated;
+    position: absolute;
     transition: left 0.1s, top 0.1s;
     z-index: 10;
     width: 48px;
@@ -68,10 +106,10 @@ body {
 #personagem2{
     background-image: url("./assets/character/idle-back.png");
     background-size: 400% 100%;
-    background-position: 0% 0%; 
+    background-position: 0% 0%;
     background-repeat: no-repeat;
-    image-rendering: pixelated; 
-    position:absolute;
+    image-rendering: pixelated;
+    position: absolute;
     transition: left 0.1s, top 0.1s;
     z-index: 10;
     width: 48px;
@@ -83,9 +121,7 @@ body {
     width: 48px;
     height: 48px;
     background-image: url("./assets/terrain/ground.png");
-    background-size: cover ;
-    
-
+    background-size: cover;
 }
 .tile {
     z-index: 9;
@@ -98,26 +134,24 @@ body {
 .bomba {
     z-index: 11;
     position: absolute;
-    display:block;
+    display: block;
     width: 48px;
     height: 48px;
     background-image: url("./assets/items/dynamite.png");
     background-size: 300% 300%;
     background-position: 0,0;
 }
-
 .explosao{
     z-index: 12;
     position: absolute;
-    display:block;
+    display: block;
     width: 48px;
     height: 48px;
     background-image: url("./assets/fxs/explosion.png");
-    background-size: 300% 200%; 
-    background-position:px 0px;
+    background-size: 300% 200%;
+    background-position: 0px 0px;
     background-repeat: no-repeat;
-    image-rendering: pixelated; 
-    
+    image-rendering: pixelated;
 }
 .bombaInativa{
     display: none;
@@ -135,19 +169,62 @@ body {
     background-image: url("./assets/terrain/wall.png");
 }
 #placeholdergame{
-    width:  80%;
-    
+    width: 80%;
 }
 
-
+/* ===== TELA DE FIM DE JOGO ===== */
+/* Aparece quando qualquer um dos dois jogadores morre.
+   Igual ao #game-wrapper: "display" aparece só UMA vez aqui,
+   o JS troca para "flex" na hora de mostrar. */
 #gameover{
-    background-color: black;
     display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+
+    background-image: url("./source/fundo-final.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    overflow: hidden;
 }
-#gameover2{
-    background-color: black;
-    display: none;
+
+#gameover h1{
+    margin: 0;
+    color: #fdd568;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    text-align: center;
 }
-@media screen {
-    
+
+#gameover-buttons{
+    display: flex;
+    gap: 32px;
+}
+
+#retry, #mainmenu{
+    width: 220px;
+    height: 123px;
+    border: none;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+#retry:hover, #mainmenu:hover{
+    transform: scale(1.08);
+}
+#retry{
+    background-image: url("./source/retry.png");
+}
+#mainmenu{
+    background-image: url("./source/menu.png");
 }
