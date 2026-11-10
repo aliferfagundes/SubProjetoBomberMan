@@ -24,14 +24,14 @@ function carregarPersonagem(){
     mapa[posicaox][posicaoy] = 1;
     JOGADOR.style.left = (posicaox * TILE) + 'px';
     JOGADOR.style.top = (posicaoy * TILE) + 'px';
-    JOGADOR.style.backgroundImage = 'url("./assets/character/idle-front.png")';
+    JOGADOR.style.backgroundImage = 'url("./assets/character/idle-frontsf.gif")';
 }
 
 function carregarPersonagem2(){
     mapa[posicaox2][posicaoy2] = 7;
     JOGADOR2.style.left = (posicaox2 * TILE) + 'px';
     JOGADOR2.style.top = (posicaoy2 * TILE) + 'px';
-    JOGADOR2.style.backgroundImage = 'url("./assets/character/idle-back.png")';
+    JOGADOR2.style.backgroundImage = 'url("./assets/character/idle-backsf.gif")';
 }
 
 function sound(audio){
@@ -168,40 +168,30 @@ function soltarBomba(posicaox, posicaoy){
                 if (mapa[alvoX][alvoY] === 1 && !p2EstaMorto) {
                     
                     backgroundSound.pause();
-                    JOGADOR.style.backgroundImage = 'url(./assets/character/death-front.png)';
-                    JOGADOR2.style.backgroundImage = 'url(./assets/character/win-front.png)';
-                    JOGADOR.style.backgroundSize = '500% 100%';
-                    JOGADOR2.style.backgroundSize = '96px 48px';
-                    JOGADOR2.style.backgroundPosition = '0px 0px';
+                    JOGADOR.style.backgroundImage = 'url(./source/deathGif_sem_fundo.gif)';
+                    JOGADOR2.style.backgroundImage = 'url(./assets/character/win-frontsf.gif)';
+                    
+                    JOGADOR.style.backgroundSize = '100% 100%';
                     setTimeout(() => {
-                        JOGADOR.style.backgroundSize = '400% 100%';
-                        JOGADOR2.style.backgroundSize = '400% 100%';
-                        JOGADOR2.style.backgroundPosition = '0% 0%';
                         morte();
-                    }, 1500);
+                    }, 700);
                     p1EstaMorto = false;
                     break;
                 }
                 if(mapa[alvoX][alvoY] === 7 && !p1EstaMorto) {
                     
                     backgroundSound.pause();
-                    JOGADOR2.style.backgroundImage = 'url(./assets/character/death-front.png)';
-                    JOGADOR.style.backgroundImage = 'url(./assets/character/win-front.png)';
-                    JOGADOR.style.backgroundSize = '96px 48px';
-                    JOGADOR.style.backgroundPosition = '0px 0px';
-                    JOGADOR2.style.backgroundSize = '500% 100%';
-                    JOGADOR2.style.backgroundPosition = '0px 0px';
+                    JOGADOR2.style.backgroundImage = 'url(./source/deathGif_sem_fundo.gif)';
+                    JOGADOR.style.backgroundImage = 'url(./assets/character/win-frontsf.gif)';
+                 
+                    JOGADOR2.style.backgroundSize = '100% 100%';
                     setTimeout(() => {
-                        JOGADOR.style.backgroundSize = '400% 100%';
-                        JOGADOR.style.backgroundPosition = '0% 0%';
-                        JOGADOR2.style.backgroundSize = '400% 100%';
-                        JOGADOR2.style.backgroundPosition = '0% 0%';
                         morte2();
-                    }, 1500);
+                    }, 700);
                     matriz[alvoX][alvoY] = 0;
                     p2EstaMorto = false;
                     break;
-                    
+                    // antonio esteve aqui
                 }
                 criarExplosao(alvoX, alvoY);
             }
@@ -218,10 +208,10 @@ document.addEventListener('keydown', (e) => {
     }
 });
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'w' && podeAndar) { andar(0, -1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-back.png)'; }
-    if (e.key === 's' && podeAndar) { andar(0, 1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-front.png)'; }
-    if (e.key === 'a' && podeAndar) { andar(-1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-left.png)'; }
-    if (e.key === 'd' && podeAndar) { andar(1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-right.png)'; }
+    if (e.key === 'w' && podeAndar) { andar(0, -1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-backsf.gif)'; setTimeout(()=>{ JOGADOR.style.backgroundImage = 'url(./assets/character/idle-backsf.gif)'},150) }
+    if (e.key === 's' && podeAndar) { andar(0, 1); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-frontsf.gif)'; setTimeout(()=>{JOGADOR.style.backgroundImage = 'url(./assets/character/idle-frontsf.gif)'},150) }
+    if (e.key === 'a' && podeAndar) { andar(-1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-leftsf.gif)'; setTimeout(()=>{ JOGADOR.style.backgroundImage = 'url(./assets/character/idle-leftsf.gif)'},150) }
+    if (e.key === 'd' && podeAndar) { andar(1, 0); JOGADOR.style.backgroundImage = 'url(./assets/character/walk-rightsf.gif)'; setTimeout(()=>{JOGADOR.style.backgroundImage = 'url(./assets/character/idle-rightsf.gif)'},150) }
 });
 document.addEventListener('keydown', (e) => {
     if ((e.key === ';' || e.key === ':')&& podeAndar2) {
@@ -229,10 +219,10 @@ document.addEventListener('keydown', (e) => {
     }
 });
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowUp'&& podeAndar2) { andar2(0, -1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-back.png)'; }
-    if (e.key === 'ArrowDown'&& podeAndar2) { andar2(0, 1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-front.png)'; }
-    if (e.key === 'ArrowLeft'&& podeAndar2) { andar2(-1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-left.png)'; }
-    if (e.key === 'ArrowRight'&& podeAndar2) { andar2(1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-right.png)'; }
+    if (e.key === 'ArrowUp'&& podeAndar2) { andar2(0, -1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-backsf.gif)';    setTimeout(()=>{JOGADOR2.style.backgroundImage = 'url(./assets/character/idle-backsf.gif)'}, 150)}
+    if (e.key === 'ArrowDown'&& podeAndar2) { andar2(0, 1); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-frontsf.gif)';  setTimeout(()=>{JOGADOR2.style.backgroundImage = 'url(./assets/character/idle-frontsf.gif)'}, 150)}
+    if (e.key === 'ArrowLeft'&& podeAndar2) { andar2(-1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-leftsf.gif)';  setTimeout(()=>{JOGADOR2.style.backgroundImage = 'url(./assets/character/idle-leftsf.gif)'}, 150)}
+    if (e.key === 'ArrowRight'&& podeAndar2) { andar2(1, 0); JOGADOR2.style.backgroundImage = 'url(./assets/character/walk-rightsf.gif)'; setTimeout(()=>{JOGADOR2.style.backgroundImage = 'url(./assets/character/idle-rightsf.gif)'}, 150)}
 });
 
 function comecaFase01(){
@@ -246,6 +236,7 @@ function comecaFase01(){
             tile.className = borda ? 'outsideTile' : 'tile';
             if (borda) { mapa[x][y] = 6; }
             if (wall) { tile.classList.add('wall'); mapa[x][y] = 2; }
+            if(Math.random() > 0.7 && !borda && !wall){tile.style.backgroundPosition = '200% 100%'};
             tile.style.left = (x * TILE) + 'px';
             tile.style.top = (y * TILE) + 'px';
             game.appendChild(tile);

@@ -89,8 +89,8 @@ canvas {
 }
 
 #personagem{
-    background-image: url("./assets/character/idle-front.png");
-    background-size: 400% 100%;
+    background-image: url("./assets/character/idle-frontsf.gif");
+    background-size: 100% 100%;
     background-position: 0% 0%;
     background-repeat: no-repeat;
     image-rendering: pixelated;
@@ -101,8 +101,8 @@ canvas {
     height: 48px;
 }
 #personagem2{
-    background-image: url("./assets/character/idle-back.png");
-    background-size: 400% 100%;
+    background-image: url("./assets/character/idle-backsf.gif");
+    background-size: 100% 100%;
     background-position: 0% 0%;
     background-repeat: no-repeat;
     image-rendering: pixelated;
@@ -134,8 +134,8 @@ canvas {
     display: block;
     width: 48px;
     height: 48px;
-    background-image: url("./assets/items/dynamite.png");
-    background-size: 300% 300%;
+    background-image: url("./assets/items/dynamitesf.gif");
+    background-size: 100% 100%;
     background-position: 0,0;
 }
 .explosao{
@@ -144,8 +144,8 @@ canvas {
     display: block;
     width: 48px;
     height: 48px;
-    background-image: url("./assets/fxs/explosion.png");
-    background-size: 300% 200%;
+    background-image: url("./assets/fxs/explosionsf.gif");
+    background-size: 100% 100%;
     background-position: 0px 0px;
     background-repeat: no-repeat;
     image-rendering: pixelated;
